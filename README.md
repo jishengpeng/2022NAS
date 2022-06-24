@@ -63,6 +63,8 @@
 #### 4.conv咋还分dill sep的
 #### 答：分别是空洞卷积和深度可分离卷积
 ![image](https://user-images.githubusercontent.com/78149477/175484855-ae65bd45-317b-49bb-82b4-22c6c886e2ea.png)
+和![image](https://user-images.githubusercontent.com/78149477/175485581-bc1cdd94-581b-44c0-8a83-be9f138984b2.png)
+
 
 
 
