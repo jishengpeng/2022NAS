@@ -52,4 +52,17 @@
 #### 2.9 train.py和test.py   train.py就是在模型上重新从头训练，让准确率更好看。用到的是NetworkCIFAR作为network(model)。test是在测试集上训练（其实感觉没必要，因为train里面有训练集和测试集）
 #### 2.10 trtain_imagenet.py和test_imagenet.py 重新在另外一个数据集中跑结果，network（在model.py中）是不一样的。
 
+# 2022.6.24 DARTS代码问与答
+#### 1.架构参数，模型参数是怎么更新的。
+#### 答：论文中说在测试集上更新架构参数，在训练集上更新模型参数（其实是很假的有误导倾向），其实DARTS分为两部分搜索阶段和重新训练阶段！搜索阶段用到cifar的训练集，他将训练集分成两部分，一部分叫训练部分，一部分叫测试部分（其实都是训练集分出来的），然后train过程中在一个epoch中就更新了架构参数和训练参数
+![image](https://user-images.githubusercontent.com/78149477/175483242-c3138611-b1df-4f89-863c-6e2d5ada4afe.png)
+然后搜索阶段还用训练集的验证部分来测试准确率（这时完全不更新参数）。在搜索结束后的重新训练阶段！又有训练集重新模型参数和测试集验证准确率（两次）！
+#### 2.每个node（其实就是1，2，3，4）怎么形成一个cell
+#### 答：单纯的cat堆叠
+#### 3.注意区分：每个cell入口有两个输入，分别是（n-1）cell和（n-2）cell。每个node最终会在此node之前选两个node的特征图cat起来作为本node的输入，任意两个node之间会有八个候选operation，最后只会选一个operation
+#### 4.conv咋还分dill sep的
+#### 答：分别是空洞卷积和深度可分离卷积
+![image](https://user-images.githubusercontent.com/78149477/175484855-ae65bd45-317b-49bb-82b4-22c6c886e2ea.png)
+
+
 
